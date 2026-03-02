@@ -22,7 +22,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+            className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-8 leading-[1.1] tracking-tight"
           >
             Light up your holidays <br />
             <span className="text-primary">in Turkey</span>
@@ -31,7 +31,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-slate-200 mb-10 max-w-2xl mx-auto px-4"
           >
             Curated day tours & private experiences in Istanbul, Cappadocia & beyond.
           </motion.p>
@@ -40,12 +40,12 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto px-6 sm:px-0"
           >
-            <Link to="/tours" className="bg-primary hover:bg-primary-hover text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-primary/25">
+            <Link to="/tours" className="bg-primary hover:bg-primary-hover text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-primary/25 w-full sm:w-auto text-center">
               Explore Tours
             </Link>
-            <Link to="/build-itinerary" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center">
+            <Link to="/build-itinerary" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center w-full sm:w-auto text-center">
               Build my itinerary
             </Link>
           </motion.div>

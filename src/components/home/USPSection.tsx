@@ -54,7 +54,7 @@ export default function USPSection() {
             <img 
               src="https://images.unsplash.com/photo-1527838832700-5059252407fa?q=80&w=1998&auto=format&fit=crop" 
               alt="Happy travelers in Turkey" 
-              className="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/5]"
+              className="relative rounded-2xl shadow-2xl w-full object-cover aspect-square sm:aspect-[4/5]"
             />
             
             <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl max-w-xs hidden md:block">
