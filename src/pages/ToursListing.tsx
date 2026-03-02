@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { SlidersHorizontal, ArrowUpDown, ChevronDown, ChevronUp, MapPin, Calendar, Users, Star } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -122,8 +123,47 @@ const itemVariants = {
 };
 
 export default function ToursListing() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(null);
+  const [selectedDestinations, setSelectedDestinations] = useState<string[]>([]);
+
+  useEffect(() => {
+    const destParam = searchParams.get('destination');
+    if (destParam) {
+      setSelectedDestinations([destParam]);
+    } else {
+      setSelectedDestinations([]);
+    }
+  }, [searchParams]);
+
+  const handleDestinationChange = (destination: string) => {
+    let newDestinations: string[];
+    if (selectedDestinations.includes(destination)) {
+      newDestinations = selectedDestinations.filter(d => d !== destination);
+    } else {
+      newDestinations = [...selectedDestinations, destination];
+    }
+    
+    setSelectedDestinations(newDestinations);
+
+    // Update URL to reflect the primary selection or clear it
+    if (newDestinations.length === 1) {
+      setSearchParams({ destination: newDestinations[0] });
+    } else if (newDestinations.length === 0) {
+      setSearchParams({});
+    } else {
+      // If multiple selected, maybe remove the single param to avoid confusion
+      // or we could support comma-separated values in the future
+      searchParams.delete('destination');
+      setSearchParams(searchParams);
+    }
+  };
+
+  const filteredTours = allTours.filter(tour => {
+    if (selectedDestinations.length === 0) return true;
+    return selectedDestinations.includes(tour.location);
+  });
 
   const toggleFaq = (index: number) => {
     setActiveFaqIndex(activeFaqIndex === index ? null : index);
@@ -171,7 +211,10 @@ export default function ToursListing() {
             {/* Sidebar Filters (Desktop) */}
             <aside className="hidden lg:block w-72 flex-shrink-0">
               <div className="sticky top-24">
-                <TourFilters />
+                <TourFilters 
+                  selectedDestinations={selectedDestinations}
+                  onDestinationChange={handleDestinationChange}
+                />
               </div>
             </aside>
 
@@ -191,7 +234,7 @@ export default function ToursListing() {
             {/* Main Content */}
             <div className="flex-grow">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-slate-900">Available Tours <span className="text-slate-400 font-normal text-lg ml-2">({allTours.length})</span></h2>
+                <h2 className="text-2xl font-bold text-slate-900">Available Tours <span className="text-slate-400 font-normal text-lg ml-2">({filteredTours.length})</span></h2>
               </div>
 
               <motion.div 
@@ -200,7 +243,7 @@ export default function ToursListing() {
                 animate="visible"
                 className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
               >
-                {allTours.map((tour) => (
+                {filteredTours.map((tour) => (
                   <motion.div key={tour.id} variants={itemVariants}>
                     <TourCard tour={tour} />
                   </motion.div>
@@ -305,7 +348,10 @@ export default function ToursListing() {
                 <h2 className="text-xl font-bold text-slate-900">Filters</h2>
                 <button onClick={() => setIsMobileFiltersOpen(false)} className="text-slate-500 hover:text-slate-900">Close</button>
               </div>
-              <TourFilters />
+              <TourFilters 
+                selectedDestinations={selectedDestinations}
+                onDestinationChange={handleDestinationChange}
+              />
               <div className="mt-8 pt-4 border-t border-slate-100">
                 <button 
                   onClick={() => setIsMobileFiltersOpen(false)}

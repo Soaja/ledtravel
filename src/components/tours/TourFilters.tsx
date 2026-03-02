@@ -1,7 +1,12 @@
 import React from 'react';
 import { ChevronDown, Filter } from 'lucide-react';
 
-export default function TourFilters() {
+interface TourFiltersProps {
+  selectedDestinations: string[];
+  onDestinationChange: (destination: string) => void;
+}
+
+export default function TourFilters({ selectedDestinations, onDestinationChange }: TourFiltersProps) {
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-2 font-bold text-lg text-slate-900 pb-4 border-b border-slate-200">
@@ -15,7 +20,12 @@ export default function TourFilters() {
         <div className="space-y-2">
           {['Istanbul', 'Cappadocia', 'Antalya', 'Ephesus', 'Pamukkale'].map((city) => (
             <label key={city} className="flex items-center gap-3 cursor-pointer group">
-              <input type="checkbox" className="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" />
+              <input 
+                type="checkbox" 
+                className="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary"
+                checked={selectedDestinations.includes(city)}
+                onChange={() => onDestinationChange(city)}
+              />
               <span className="text-slate-600 group-hover:text-slate-900 transition-colors">{city}</span>
             </label>
           ))}

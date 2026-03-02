@@ -57,7 +57,7 @@ export default function FeaturedTours() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {tours.map((tour) => (
-            <div key={tour.id} className="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden">
+            <Link key={tour.id} to={`/tours/${tour.id}`} className="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden">
               {/* Image */}
               <div className="relative h-64 overflow-hidden">
                 <img 
@@ -70,9 +70,9 @@ export default function FeaturedTours() {
                     {tour.badge}
                   </span>
                 </div>
-                <button className="absolute bottom-4 right-4 bg-white text-slate-900 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-primary hover:text-white">
+                <div className="absolute bottom-4 right-4 bg-white text-slate-900 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-primary hover:text-white">
                   <Star className="w-4 h-4" />
-                </button>
+                </div>
               </div>
 
               {/* Content */}
@@ -87,7 +87,7 @@ export default function FeaturedTours() {
                 </div>
                 
                 <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                  <Link to={`/tours/${tour.id}`}>{tour.title}</Link>
+                  {tour.title}
                 </h3>
                 
                 <div className="flex items-center gap-1 mb-4">
@@ -101,15 +101,12 @@ export default function FeaturedTours() {
                     <span className="text-xs text-slate-500 block">From</span>
                     <span className="text-xl font-bold text-slate-900">€{tour.price}</span>
                   </div>
-                  <Link 
-                    to={`/tours/${tour.id}`}
-                    className="text-primary font-bold text-sm hover:underline"
-                  >
+                  <span className="text-primary font-bold text-sm hover:underline">
                     View Details
-                  </Link>
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

@@ -49,7 +49,7 @@ export default function DestinationsGrid() {
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Popular Destinations</h2>
             <p className="text-slate-600 max-w-xl">Explore the most iconic locations in Turkey, from the historic streets of Istanbul to the magical valleys of Cappadocia.</p>
           </div>
-          <Link to="/destinations" className="hidden md:flex items-center gap-2 text-primary font-bold hover:text-primary-hover transition-colors">
+          <Link to="/tours" className="hidden md:flex items-center gap-2 text-primary font-bold hover:text-primary-hover transition-colors">
             View all destinations <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
@@ -58,7 +58,7 @@ export default function DestinationsGrid() {
           {destinations.map((dest, index) => (
             <Link 
               key={dest.id} 
-              to={`/tours/${dest.name.toLowerCase()}`}
+              to={`/tours?destination=${encodeURIComponent(dest.name)}`}
               className={`group relative rounded-2xl overflow-hidden cursor-pointer ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}
             >
               <img 
@@ -85,7 +85,7 @@ export default function DestinationsGrid() {
         </div>
         
         <div className="mt-8 md:hidden text-center">
-          <Link to="/destinations" className="inline-flex items-center gap-2 text-primary font-bold">
+          <Link to="/tours" className="inline-flex items-center gap-2 text-primary font-bold">
             View all destinations <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
